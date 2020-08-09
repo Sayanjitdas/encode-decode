@@ -26,8 +26,9 @@ function algoEncodeDecode(hashKey){
         for(let index in hashKey){
             summation += hashKey.charCodeAt(index);
         }
+        console.log(summation);
         if(summation > 127){
-            summation = Math.round(summation/127);
+            summation = Math.round(summation/5);
         }
     return summation    
 }
@@ -41,8 +42,13 @@ function encryption(str,hashKey){
 
 function decryption(str,hashKey){
 
+    const sum = algoEncodeDecode(hashKey);
+
+    if(String.fromCharCode(sum) === str.slice(str.length -1,)){
+        return true
+    }
     //returning decryption string
-    return atob(str+String.fromCharCode(algoEncodeDecode(hashKey)));
+    return false
 
 }
 
@@ -69,7 +75,13 @@ decodeBtn.addEventListener("click",function(){
     }else{
         
         //decode the base64 message from hash
-        let decodedMsg = atob(hash.replace("#",''));  
-        decodeMsg.value = decodedMsg.slice(0,decodedMsg.length - 1);
+        let decodedMsg = atob(hash.replace("#",'')); 
+        if(decryption(decodedMsg,hashKey)){
+            decodeMsg.value = decodedMsg.slice(0,decodedMsg.length - 1);
+        }else{
+            alert("invalid hashkey");
+            window.location.reload();
+        };
+        
     }  
 })
