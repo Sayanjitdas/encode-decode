@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" type="image/png" href="https://www.google.com/s2/u/0/favicons?domain=udemy.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!--Encode secret message container-->
+    <div class="msg-container" id="encode-msg-container">      
+        <div class="input-container">
+        <!--input-->
+        <input type="text" class="secret-msg" id="encode-msg" placeholder="Type your secret message..">
+        </div>
+
+        <div class="button-container">
+            <!--button-->
+            <button id="encode-btn">ENCODE</button>
+        </div>
+    </div>
+
+    <!--share link-->
+    <div class="msg-container hide" id="share-link-container">
+        <!--input-->
+        <textarea class="share-link" id="share-link" rows="4" title="add the url to another browser tab"></textarea>
+    </div>
+
+    <!--Decode secret message container-->
+    <div class="msg-container hide" id="decode-msg-container">
+        <div class="input-container">
+            <!--input-->
+            <input type="text" class="secret-msg" id="decode-msg">
+            </div>
+    
+            <div class="button-container">
+                <!--button-->
+                <button id="decode-btn">DECODE</button>
+            </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
