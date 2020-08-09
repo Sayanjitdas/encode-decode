@@ -19,11 +19,38 @@ if(hash !== ""){
     decodeMsg.value = hash.replace("#",'');
 }
 
+//algorithm of encryption and decryption
+function algoEncodeDecode(hashKey){
+        //summing up the character to get the number
+        let summation = 0;
+        for(let index in hashKey){
+            summation += hashKey.charCodeAt(index);
+        }
+        if(summation > 127){
+            summation = Math.round(summation/127);
+        }
+    return summation    
+}
+
+
+function encryption(str,hashKey){
+
+    //returning encoded string
+    return btoa(str+String.fromCharCode(algoEncodeDecode(hashKey)));
+}
+
+function decryption(str,hashKey){
+
+    //returning decryption string
+    return atob(str+String.fromCharCode(algoEncodeDecode(hashKey)));
+
+}
 
 //adding eventlistener on encode button to grab the message from input
 encodeBtn.addEventListener('click',function(){
-    //base64 encoding of the message
-    const encodedMsg = btoa(encodeMsg.value);
+    //base64 encoding of the message   
+    const hashKeyVal = prompt("Enter 5 random characters");
+    const encodedMsg = encryption(encodeMsg.value,hashKeyVal);
     const url = `${window.location}#${encodedMsg}`;
     shareLink.value = url;
 
@@ -34,7 +61,15 @@ encodeBtn.addEventListener('click',function(){
 })
 
 decodeBtn.addEventListener("click",function(){
-    //decode the base64 message from hash
-    const decodedMsg = atob(hash.replace("#",''));
-    decodeMsg.value = decodedMsg;  
+
+    //get the hash key from prompt
+    const hashKey = prompt("Enter the hash key");
+    if(hashKey === null || hashKey === ""){
+        window.location.reload();
+    }else{
+        
+        //decode the base64 message from hash
+        let decodedMsg = atob(hash.replace("#",''));  
+        decodeMsg.value = decodedMsg.slice(0,decodedMsg.length - 1);
+    }  
 })
